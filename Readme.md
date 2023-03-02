@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Луиза Ляху](https://up.htmlacademy.ru/javascript/28/user/1471761).
-* Наставник: [Александр Крапивин](https://htmlacademy.ru/profile/id197315)..
+* Наставник: [Александр Крапивин](https://htmlacademy.ru/profile/id197315).
 
 ---
 
