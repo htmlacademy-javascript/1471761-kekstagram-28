@@ -60,9 +60,3 @@ const newPadStart = (string, minLength, pad) => {
 };
 
 newPadStart('1', 2, '0');
-
-
-
-
-
-
