@@ -57,22 +57,6 @@ const createIdGenerator = () => {
   };
 };
 
-function createRandomIdFromRangeGenerator(min, max) {
-  const previousValues = [];
-
-  return function () {
-    let currentValue = getRandomInteger(min, max);
-    if (previousValues.length >= (max - min + 1)) {
-      return null;
-    }
-    while (previousValues.includes(currentValue)) {
-      currentValue = getRandomInteger(min, max);
-    }
-    previousValues.push(currentValue);
-    return currentValue;
-  };
-};
-
 const generateCommentId = createIdGenerator();
 
 const createMessage = () =>
@@ -82,14 +66,14 @@ const createMessage = () =>
 
 const createComment = () => ({
   id: generateCommentId(),
-  avatar: `img/avatar ${getRandomInteger(1, AVATAR_COUNT)}.svg`,
+  avatar: `img/avatar${getRandomInteger(1, AVATAR_COUNT)}.svg`,
   message: createMessage(),
   name: getRandomArrayElement(names),
 });
 
 const createPhoto = (index) => ({
   id: index,
-  url: `photos/ ${index}.jpeg`,
+  url: `photos/${index}.jpeg`,
   description: getRandomArrayElement(descriptions),
   likes: getRandomInteger(LIKE_MIN, LIKE_MAX),
   comments: Array.from({ length: getRandomInteger(0, COMMENT_COUNT) },
