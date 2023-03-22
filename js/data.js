@@ -1,4 +1,4 @@
-import { getRandomInteger, getRandomArrayElement, createIdGenerator } from './util.js';
+import { getRandomInteger, getRandomArrayElement } from './util.js';
 
 const PHOTO_COUNT = 25;
 const AVATAR_COUNT = 6;
@@ -39,13 +39,15 @@ const descriptions = [
   'Такова моя позиция.'
 ];
 
+let counter = 1;
+
 const createMessage = () =>
   Array.from({ length: getRandomInteger(MIN_MESSAGE, MAX_MESSAGE) }, () =>
     getRandomArrayElement(commentLines)
   ).join(' ');
 
 const createComment = () => ({
-  id: generateCommentId(),
+  id: counter++,
   avatar: `img/avatar${getRandomInteger(1, AVATAR_COUNT)}.svg`,
   message: createMessage(),
   name: getRandomArrayElement(names),
