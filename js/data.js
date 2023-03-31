@@ -70,4 +70,3 @@ const getPhoto = () =>
   );
 
 export { getPhoto };
-
