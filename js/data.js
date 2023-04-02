@@ -48,7 +48,7 @@ const createMessage = () =>
 
 const createComment = () => ({
   id: counter++,
-  avatar: `img/avatar${getRandomInteger(1, AVATAR_COUNT)}.svg`,
+  avatar: `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
   message: createMessage(),
   name: getRandomArrayElement(names),
 });
@@ -69,4 +69,4 @@ const getPhoto = () =>
     createPhoto(photoIndex + 1)
   );
 
-export { getPhoto };
+export default getPhoto;
