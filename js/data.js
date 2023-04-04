@@ -1,12 +1,6 @@
 import { getRandomInteger, getRandomArrayElement } from './util.js';
 
-const PHOTO_COUNT = 25;
-const AVATAR_COUNT = 6;
-const LIKE_MIN = 15;
-const LIKE_MAX = 200;
-const COMMENT_COUNT = 15;
-const MIN_MESSAGE = 1;
-const MAX_MESSAGE = 2;
+import {PHOTO_COUNT, LIKE_MIN, LIKE_MAX, AVATAR_COUNT, COMMENT_COUNT, MIN_MESSAGE, MAX_MESSAGE} from './constants.js';
 
 const names = [
   'Иван',
