@@ -1,6 +1,6 @@
 import { getRandomInteger, getRandomArrayElement } from './util.js';
 
-import {PHOTO_COUNT, LIKE_MIN, LIKE_MAX, AVATAR_COUNT, COMMENT_COUNT, MIN_MESSAGE, MAX_MESSAGE} from './constants.js';
+import { PHOTO_COUNT, LIKE_MIN, LIKE_MAX, AVATAR_COUNT, COMMENT_COUNT, MIN_MESSAGE, MAX_MESSAGE } from './constants.js';
 
 const names = [
   'Иван',

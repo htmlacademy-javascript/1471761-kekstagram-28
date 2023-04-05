@@ -11,8 +11,6 @@ const template = document.querySelector('#current-comment').content.querySelecto
 
 let commentShown = 0;
 let basicComments = null;
-let totalComments = commentsCount;
-//let currentSocialCount = 0;
 
 const onDocumentKeydown = (evt) => {
   if (evt.key === 'Escape') {
@@ -36,28 +34,6 @@ const createComment = (comment) => {
   return commentElement;
 };
 
-/*const loadSocialCount = () => {
-
-  currentSocialCount = COMMENTS_PER_PORTION;
-
-  if (currentSocialCount <= commentShown) {
-    currentSocialCount = commentShown;
-  } else {
-    currentSocialCount += COMMENTS_PER_PORTION;
-
-  }
-
-  if (currentSocialCount >= commentShown) {
-    currentSocialCount = commentShown - currentSocialCount;
-  }
-
-  if (currentSocialCount = commentShown) {
-    commentsLoader.classList.add('hidden');
-  }
-
-}; */
-
-
 const renderComments = () => {
   const fragment = document.createDocumentFragment();
 
@@ -69,6 +45,12 @@ const renderComments = () => {
   });
 
   commentList.append(fragment);
+
+  socialCommentsCount.childNodes[0].nodeValue = `${commentList.children.length} из `;
+
+  if (commentList.children.length === basicComments.length) {
+    commentsLoader.classList.add('hidden');
+  }
 };
 
 const clearComments = () => {
@@ -77,12 +59,9 @@ const clearComments = () => {
   basicComments = null;
 };
 
-
 const onCommentsLoaderClick = () => {
   commentShown += COMMENTS_PER_PORTION;
-  //loadSocialCount();
   renderComments();
-
 };
 
 function hideBigPicture() {
@@ -98,7 +77,6 @@ const showBigPicture = ({ url, likes, description, comments }) => {
 
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
-  commentsCount.classList.remove('hidden');
   commentsLoader.classList.remove('hidden');
 
   bigPicture.querySelector('.big-picture__img img').src = url;
@@ -106,14 +84,14 @@ const showBigPicture = ({ url, likes, description, comments }) => {
   bigPicture.querySelector('.likes-count').textContent = likes;
   bigPicture.querySelector('.social__caption').textContent = description;
 
+  commentsCount.textContent = comments.length;
+
   basicComments = comments;
 
   renderComments();
 
-  //socialCommentsCount.innerHTML = `${loadSocialCount()} + 'из'`;
+  commentsCount.textContent = comments.length;
 
-  commentsCount.innerHTML = `${basicComments.length}`;
-  totalComments = basicComments.length;
   document.addEventListener('keydown', onDocumentKeydown);
   cancelButton.addEventListener('click', onCancelClick);
   commentsLoader.addEventListener('click', onCommentsLoaderClick);
