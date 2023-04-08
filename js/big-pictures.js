@@ -1,4 +1,4 @@
-import COMMENTS_PER_PORTION from './constants.js';
+import { COMMENTS_PER_PORTION } from './constants.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const commentList = document.querySelector('.social__comments');
