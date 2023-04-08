@@ -73,12 +73,7 @@ function openModal() {
 function closeModal() {
   form.reset();
   pristine.reset();
-  //hashtagField.reset();
-  //commentField.reset();
-
-  fileField.innerHTML = '';
-  commentField.innerHTML = '';
-  hashtagField.innerHTML = '';
+  fileField.value = '';
 
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
