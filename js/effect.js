@@ -55,13 +55,14 @@ const EFFECTS = [
 ];
 
 const DEFAULT_EFFECT = EFFECTS[0];
+
 let chosenEffect = DEFAULT_EFFECT;
 
-const imageElement = document.querySelector('img-upload__preview img');
-const effectsElement = document.querySelector('effects');
-const sliderElement = document.querySelector('effect-level__slider');
-const sliderContainerElement = document.querySelector('img-upload__effects');
-const effectLevelElement = document.querySelector('effect-level__value');
+const imageElement = document.querySelector('.img-upload__preview img');
+const effectsElement = document.querySelector('.effects');
+const sliderElement = document.querySelector('.effect-level__slider');
+const sliderContainerElement = document.querySelector('.img-upload__effect-level');
+const effectLevelElement = document.querySelector('.effect-level__value');
 
 const isDefault = () => chosenEffect === DEFAULT_EFFECT;
 
@@ -70,7 +71,7 @@ const showSlider = () => {
 };
 
 const hideSlider = () => {
-  sliderContainerElement.classList.remove('hidden');
+  sliderContainerElement.classList.add('hidden');
 };
 
 const updateSlider = () => {
@@ -123,6 +124,7 @@ noUiSlider.create(sliderElement, {
   step: DEFAULT_EFFECT.step,
   connect: 'lower',
 });
+
 hideSlider();
 
 effectsElement.addEventListener('change', onEffectChange);
