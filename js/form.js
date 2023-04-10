@@ -2,7 +2,6 @@ import { MAX_HASHTAG_NUMBER, VALID_SIMBOLS, TAG_ERROR_TEXT } from './constants.j
 import resetScale from './scale.js';
 import resetEffects from './effect.js';
 
-
 const form = document.querySelector('.img-upload__form');
 const overlay = document.querySelector('.img-upload__overlay');
 const body = document.querySelector('body');
@@ -10,6 +9,12 @@ const cancelButton = document.querySelector('#upload-cancel');
 const fileField = document.querySelector('#upload-file');
 const hashtagField = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
+const submitButton = document.querySelector('.img-upload__submit');
+
+const SubmitButtonText = {
+  IDLE: 'Сохранить',
+  SENDING: 'Сохраняю...'
+};
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -59,9 +64,34 @@ const onFileImputChange = () => {
   openModal();
 };
 
-const onFormSubmit = (evt) => {
+/*const onFormSubmit = (evt) => {
   evt.preventDefault();
   pristine.validate();
+}; */
+
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
+
+const setOnFormSubmit = (cb) => {
+  form.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+
+    if (isValid) {
+      blockSubmitButton();
+      await cb(new FormData(form));
+      unblockSubmitButton();
+    }
+  });
 };
 
 function openModal() {
@@ -70,7 +100,7 @@ function openModal() {
 
   document.addEventListener('keydown', onDocumentKeydown);
   cancelButton.addEventListener('click', onCancelButtonClick);
-  form.addEventListener('submit', onFormSubmit);
+  form.addEventListener('submit', setOnFormSubmit);
 }
 
 function closeModal() {
@@ -85,11 +115,12 @@ function closeModal() {
 
   document.removeEventListener('keydown', onDocumentKeydown);
   cancelButton.removeEventListener('click', onCancelButtonClick);
-  form.removeEventListener('submit', onFormSubmit);
+  form.removeEventListener('submit', setOnFormSubmit);
 }
+
 
 const activateUploader = () => {
   fileField.addEventListener('change', onFileImputChange);
 };
 
-export default activateUploader;
+export { activateUploader, closeModal, setOnFormSubmit };
