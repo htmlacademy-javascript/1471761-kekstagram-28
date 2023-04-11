@@ -1,3 +1,7 @@
+import renderThumbnails from './thumbnail.js';
+import showAlert from './alert.js';
+import { unblockSubmitButton } from './form.js';
+
 const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
 const Route = {
   GET_DATA: '/data',
@@ -12,7 +16,7 @@ const ErrorText = {
   SEND_DATA: 'Не удалось отправить форму. Попробуйте ещё раз',
 };
 
-const load = (route, errorText, method = Method.GET, body = null) =>
+const load = (route, errorText, onSucces, onError, method = Method.GET, body = null) =>
   fetch(`${BASE_URL}${route}`, { method, body })
     .then((response) => {
       if (!response.ok) {
@@ -20,12 +24,17 @@ const load = (route, errorText, method = Method.GET, body = null) =>
       }
       return response.json();
     })
+    .then((data) => {
+     onSucces(data);
+     unblockSubmitButton();
+    })
     .catch(() => {
-      throw new Error(errorText);
+      onError(errorText);
+      unblockSubmitButton();
     });
 
-const getData = () => load(Route.GET_DATA, ErrorText.GET_DATA);
-const sendData = (body) => load(Route.SEND_DATA, ErrorText.SEND_DATA, Method.POST, body);
+const getData = () => load(Route.GET_DATA, ErrorText.GET_DATA, renderThumbnails, showAlert);
+const sendData = (body) => load(Route.SEND_DATA, ErrorText.SEND_DATA, showSuccessMessage,showErrorMessage, Method.POST, body);
 
 export { getData, sendData };
 

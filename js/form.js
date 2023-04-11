@@ -64,12 +64,6 @@ const onFileImputChange = () => {
   openModal();
 };
 
-/*const onFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-}; */
-
-
 const blockSubmitButton = () => {
   submitButton.disabled = true;
   submitButton.textContent = SubmitButtonText.SENDING;
@@ -80,19 +74,16 @@ const unblockSubmitButton = () => {
   submitButton.textContent = SubmitButtonText.IDLE;
 };
 
-const setOnFormSubmit = (cb) => {
-  form.addEventListener('submit', async (evt) => {
+const setOnFormSubmit = () => {
     evt.preventDefault();
 
     const isValid = pristine.validate();
 
     if (isValid) {
       blockSubmitButton();
-      await cb(new FormData(form));
-      unblockSubmitButton();
+     sendData(new FormData(form));
     }
-  });
-};
+  };
 
 function openModal() {
   overlay.classList.remove('hidden');
@@ -123,4 +114,4 @@ const activateUploader = () => {
   fileField.addEventListener('change', onFileImputChange);
 };
 
-export { activateUploader, closeModal, setOnFormSubmit };
+export { activateUploader, unblockSubmitButton };
