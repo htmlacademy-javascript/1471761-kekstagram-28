@@ -1,6 +1,7 @@
 import { MAX_HASHTAG_NUMBER, VALID_SIMBOLS, TAG_ERROR_TEXT } from './constants.js';
 import resetScale from './scale.js';
 import resetEffects from './effect.js';
+import { sendData } from './api.js';
 
 const form = document.querySelector('.img-upload__form');
 const overlay = document.querySelector('.img-upload__overlay');
@@ -74,16 +75,16 @@ const unblockSubmitButton = () => {
   submitButton.textContent = SubmitButtonText.IDLE;
 };
 
-const setOnFormSubmit = () => {
-    evt.preventDefault();
+const onFormSubmit = (evt) => {
+  evt.preventDefault();
 
-    const isValid = pristine.validate();
+  const isValid = pristine.validate();
 
-    if (isValid) {
-      blockSubmitButton();
-     sendData(new FormData(form));
-    }
-  };
+  if (isValid) {
+    blockSubmitButton();
+    sendData(new FormData(form));
+  }
+};
 
 function openModal() {
   overlay.classList.remove('hidden');
@@ -91,7 +92,7 @@ function openModal() {
 
   document.addEventListener('keydown', onDocumentKeydown);
   cancelButton.addEventListener('click', onCancelButtonClick);
-  form.addEventListener('submit', setOnFormSubmit);
+  form.addEventListener('submit', onFormSubmit);
 }
 
 function closeModal() {
@@ -106,9 +107,8 @@ function closeModal() {
 
   document.removeEventListener('keydown', onDocumentKeydown);
   cancelButton.removeEventListener('click', onCancelButtonClick);
-  form.removeEventListener('submit', setOnFormSubmit);
+  form.removeEventListener('submit', onFormSubmit);
 }
-
 
 const activateUploader = () => {
   fileField.addEventListener('change', onFileImputChange);

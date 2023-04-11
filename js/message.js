@@ -1,87 +1,88 @@
-const buttonSuccessMessage = document.querySelector('.success__button');
-//const errorMessage = document.querySelector('.error__button');
+const successTemplate = document.querySelector('#success').content.querySelector('.success');
 
-const template = document.querySelector('.success').content.querySelector('.success');
-const container = document.querySelector('.success');
-
-const createSuccessMesage = (message) => {
-  const { succesText, succesButtonText } = message;
-  const succesMessage = template.cloneNode(true);
-
-  succesMessage.querySelector('.succes__title').textContent = succesText;
-  succesMessage.querySelector('.success__button').textContent = succesButtonText;
-
-  succesMessage.addEventListener('onsubmit', () => sendData());
-
-  return successMessage;
+const onSuccessCloseButtonClick = () => {
+  hideSuccessMessage();
 };
 
-const showSuccessMessage = (message) => {
-  const fragment = document.createDocumentFragment();
-  messages.forEach((message) => {
-    const succesMessage = createSuccessMesage(message);
-    fragment.append(succesMessage);
-  });
+const onDocumentClick = (evt) => {
+  evt.preventDefault();
 
-  container.append(fragment);
-};
-
-
-const hideSuccessMessage = () => {
-  buttonSuccessMessage.classList.add('hidden');
-};
-
-
-/*function(e){
-  e.closest = e.closest || function(css){
-    var node = this;
-    while (node) {
-       if (node.matches(css)) return node;
-       else node = node.parentElement;
-    }
-    return null;
+  if (!evt.target.closest('.success__inner')) {
+    hideSuccessMessage();
   }
- })(Element.prototype);  */
 
- const template = document.querySelector('.error').content.querySelector('.error');
- const container = document.querySelector('.error');
+  if (!evt.target.closest('.error__inner')) {
+    hideErrorMessage();
+  }
+};
 
- const createErrorMesage = (message) => {
-   const { errorText, errorButtonText } = message;
-   const errorMessage = template.cloneNode(true);
+const onDocumentKeydown = (evt) => {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    hideSuccessMessage();
+  }
 
-   errorMessage.querySelector('.error__title').textContent = succesText;
-   errorMessage.querySelector('.error__button').textContent = succesButtonText;
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    hideErrorMessage();
+  }
+};
 
-   errorMessage.addEventListener('onsubmit', () => sendData());
+const showSuccessMessage = () => {
+  const succesMessage = successTemplate.cloneNode(true);
 
-   return errorMessage;
- };
+  succesMessage.querySelector('.success__button').addEventListener('click', onSuccessCloseButtonClick);
+  document.addEventListener('click', onDocumentClick);
+  document.addEventListener('keydown', onDocumentKeydown);
 
- const showErrorMessage = (message) => {
-   const fragment = document.createDocumentFragment();
-   messages.forEach((message) => {
-     const errorMessage = createErrorMesage(message);
-     fragment.append(errorMessage);
-   });
+  document.body.append(succesMessage);
+};
 
-   container.append(fragment);
- };
 
+function hideSuccessMessage() {
+  document.removeEventListener('click', onDocumentClick);
+  document.removeEventListener('keydown', onDocumentKeydown);
+
+  document.body.querySelector('.success').remove();
+}
+
+const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+
+const onErrorCloseButtonClick = () => {
+  hideErrorMessage();
+};
+
+/*const onDocumentClick = (evt) => {
+  evt.preventDefault();
+
+  if (!evt.target.closest('.error__inner')) {
+    hideErrorMessage();
+  }
+};
+
+const onDocumentKeydown = (evt) => {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    hideErrorMessage();
+  }
+};  */
+
+const showErrorMessage = () => {
+  const errorMessage = errorTemplate.cloneNode(true);
+
+  errorMessage.querySelector('.error__button').addEventListener('click', onErrorCloseButtonClick);
+  document.addEventListener('click', onDocumentClick);
+  document.addEventListener('keydown', onDocumentKeydown);
+
+  document.body.append(errorMessage);
+};
+
+
+function hideErrorMessage() {
+  document.removeEventListener('click', onDocumentClick);
+  document.removeEventListener('keydown', onDocumentKeydown);
+
+  document.body.querySelector('.error').remove();
+}
 
 export { showSuccessMessage, showErrorMessage };
-
-/*
-Сообщение должно исчезать после нажатия на кнопку .success__button,
-по нажатию на клавишу Esc
-и по клику на произвольную область экрана за пределами блока с сообщением.
-
-3.5. Если при отправке данных произошла ошибка запроса,
- нужно показать соответствующее сообщение.
- Разметку сообщения, которая находится в блоке #error внутри шаблона template,
-  нужно разместить перед закрывающим тегом </body>.
-   Сообщение должно исчезать после нажатия на кнопку .error__button,
-   по нажатию на клавишу Esc
-   и по клику на произвольную область экрана за пределами блока с сообщением.
-   В таком случае вся введённая пользователем информация сохраняется,
-   чтобы у него была возможность отправить форму повторно. */
