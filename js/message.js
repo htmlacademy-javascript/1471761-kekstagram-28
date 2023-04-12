@@ -4,27 +4,18 @@ const onSuccessCloseButtonClick = () => {
   hideSuccessMessage();
 };
 
-const onDocumentClick = (evt) => {
+const onSuccessDocumentClick = (evt) => {
   evt.preventDefault();
 
   if (!evt.target.closest('.success__inner')) {
     hideSuccessMessage();
   }
-
-  if (!evt.target.closest('.error__inner')) {
-    hideErrorMessage();
-  }
 };
 
-const onDocumentKeydown = (evt) => {
+const onSuccessDocumentKeydown = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     hideSuccessMessage();
-  }
-
-  if (evt.key === 'Escape') {
-    evt.preventDefault();
-    hideErrorMessage();
   }
 };
 
@@ -32,16 +23,16 @@ const showSuccessMessage = () => {
   const succesMessage = successTemplate.cloneNode(true);
 
   succesMessage.querySelector('.success__button').addEventListener('click', onSuccessCloseButtonClick);
-  document.addEventListener('click', onDocumentClick);
-  document.addEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('click', onSuccessDocumentClick);
+  document.addEventListener('keydown', onSuccessDocumentKeydown);
 
   document.body.append(succesMessage);
 };
 
 
 function hideSuccessMessage() {
-  document.removeEventListener('click', onDocumentClick);
-  document.removeEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('click', onSuccessDocumentClick);
+  document.removeEventListener('keydown', onSuccessDocumentKeydown);
 
   document.body.querySelector('.success').remove();
 }
@@ -52,7 +43,7 @@ const onErrorCloseButtonClick = () => {
   hideErrorMessage();
 };
 
-/*const onDocumentClick = (evt) => {
+const onErrorDocumentClick = (evt) => {
   evt.preventDefault();
 
   if (!evt.target.closest('.error__inner')) {
@@ -60,27 +51,26 @@ const onErrorCloseButtonClick = () => {
   }
 };
 
-const onDocumentKeydown = (evt) => {
+const onErrorDocumentKeydown = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     hideErrorMessage();
   }
-};  */
+};
 
 const showErrorMessage = () => {
   const errorMessage = errorTemplate.cloneNode(true);
 
   errorMessage.querySelector('.error__button').addEventListener('click', onErrorCloseButtonClick);
-  document.addEventListener('click', onDocumentClick);
-  document.addEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('click', onErrorDocumentClick);
+  document.addEventListener('keydown', onErrorDocumentKeydown);
 
   document.body.append(errorMessage);
 };
 
-
 function hideErrorMessage() {
-  document.removeEventListener('click', onDocumentClick);
-  document.removeEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('click', onErrorDocumentClick);
+  document.removeEventListener('keydown', onErrorDocumentKeydown);
 
   document.body.querySelector('.error').remove();
 }

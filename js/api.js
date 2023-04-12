@@ -1,7 +1,8 @@
 import renderThumbnails from './thumbnail.js';
 import showAlert from './alert.js';
-import { unblockSubmitButton } from './form.js';
+import { unblockSubmitButton, closeModal } from './form.js';
 import { showSuccessMessage, showErrorMessage } from './message.js';
+
 
 const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
 const Route = {
@@ -28,6 +29,7 @@ const load = (route, errorText, onSucces, onError, method = Method.GET, body = n
     .then((data) => {
       onSucces(data);
       unblockSubmitButton();
+      closeModal();
     })
     .catch(() => {
       onError(errorText);
@@ -36,6 +38,9 @@ const load = (route, errorText, onSucces, onError, method = Method.GET, body = n
 
 const getData = () => load(Route.GET_DATA, ErrorText.GET_DATA, renderThumbnails, showAlert);
 const sendData = (body) => load(Route.SEND_DATA, ErrorText.SEND_DATA, showSuccessMessage, showErrorMessage, Method.POST, body);
+
+const filterElement = document.querySelector('.img-filters__title');
+filterElement.classList.remove('hiden');
 
 export { getData, sendData };
 
