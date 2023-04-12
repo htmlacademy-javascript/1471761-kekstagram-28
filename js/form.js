@@ -114,4 +114,4 @@ const activateUploader = () => {
   fileField.addEventListener('change', onFileImputChange);
 };
 
-export { activateUploader, unblockSubmitButton };
+export { activateUploader, unblockSubmitButton, closeModal };

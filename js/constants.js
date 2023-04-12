@@ -12,6 +12,7 @@ const MAX_HASHTAG_NUMBER = 5;
 const VALID_SIMBOLS = /^#[a-zа-яё0-9]{1,19}/i;
 const TAG_ERROR_TEXT = 'Неправельно заполнены хаштэги';
 
+const DELAY = 500;
 
 export {
   COMMENTS_PER_PORTION,
@@ -25,4 +26,5 @@ export {
   MAX_HASHTAG_NUMBER,
   VALID_SIMBOLS,
   TAG_ERROR_TEXT,
+  DELAY,
 };
