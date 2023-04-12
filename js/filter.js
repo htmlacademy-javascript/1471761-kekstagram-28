@@ -53,7 +53,7 @@ const onFilterClick = (callback) => {
 };
 
 const init = (loadedPictures, callback) => {
-  //filterElement.classList.remove('img-filters--inactive');
+  filterElement.classList.remove('img-filters--inactive');
   pictures = [...loadedPictures];
   onFilterClick(callback);
 };

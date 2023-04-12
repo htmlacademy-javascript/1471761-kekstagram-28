@@ -2,7 +2,7 @@ import renderThumbnails from './thumbnail.js';
 import showAlert from './alert.js';
 import { unblockSubmitButton, closeModal } from './form.js';
 import { showSuccessMessage, showErrorMessage } from './message.js';
-//import { getFilteredPictures } from './filter.js';
+import { getFilteredPictures } from './filter.js';
 
 
 const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
