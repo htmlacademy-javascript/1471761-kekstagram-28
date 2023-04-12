@@ -14,6 +14,8 @@ const TAG_ERROR_TEXT = 'Неправельно заполнены хаштэги
 
 const DELAY = 500;
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
 export {
   COMMENTS_PER_PORTION,
   PHOTO_COUNT,
@@ -27,4 +29,5 @@ export {
   VALID_SIMBOLS,
   TAG_ERROR_TEXT,
   DELAY,
+  FILE_TYPES,
 };
