@@ -1,7 +1,7 @@
 import { MAX_HASHTAG_NUMBER, VALID_SIMBOLS, TAG_ERROR_TEXT } from './constants.js';
 import resetScale from './scale.js';
 import resetEffects from './effect.js';
-
+import { sendData } from './api.js';
 
 const form = document.querySelector('.img-upload__form');
 const overlay = document.querySelector('.img-upload__overlay');
@@ -10,6 +10,12 @@ const cancelButton = document.querySelector('#upload-cancel');
 const fileField = document.querySelector('#upload-file');
 const hashtagField = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
+const submitButton = document.querySelector('.img-upload__submit');
+
+const SubmitButtonText = {
+  IDLE: 'Сохранить',
+  SENDING: 'Сохраняю...'
+};
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -59,9 +65,25 @@ const onFileImputChange = () => {
   openModal();
 };
 
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
+
 const onFormSubmit = (evt) => {
   evt.preventDefault();
-  pristine.validate();
+
+  const isValid = pristine.validate();
+
+  if (isValid) {
+    blockSubmitButton();
+    sendData(new FormData(form));
+  }
 };
 
 function openModal() {
@@ -92,4 +114,4 @@ const activateUploader = () => {
   fileField.addEventListener('change', onFileImputChange);
 };
 
-export default activateUploader;
+export { activateUploader, unblockSubmitButton };

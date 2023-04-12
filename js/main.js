@@ -1,6 +1,5 @@
-import getPhoto from './data.js';
-import activateUploader from './form.js';
-import renderThumbnails from './thumbnail.js';
+import { getData } from './api.js';
+import { activateUploader } from './form.js';
 
-renderThumbnails(getPhoto());
+getData();
 activateUploader();
