@@ -1,5 +1,4 @@
 import showBigPicture from './big-pictures.js';
-//import { init, getFilteredPictures } from './filter.js';
 
 const template = document.querySelector('#picture').content.querySelector('.picture');
 const container = document.querySelector('.pictures');
@@ -19,6 +18,8 @@ const createThumbnail = (picture) => {
 };
 
 const renderThumbnails = (pictures) => {
+  container.querySelectorAll('.picture').forEach((item) => item.remove());
+
   const fragment = document.createDocumentFragment();
   pictures.forEach((picture) => {
     const thumbnail = createThumbnail(picture);
@@ -27,17 +28,5 @@ const renderThumbnails = (pictures) => {
 
   container.append(fragment);
 };
-
-const onContainerClick = () => {
-
-};
-
-container.addEventListener('click', onContainerClick);
-
-/*const renderSortedThumbnail = (currentPictures) => {
-  pictures = currentPictures;
-  renderThumbnails(pictures, container);
-  container.addEventListener('click', onContainerClick);
-};  */
 
 export default renderThumbnails;

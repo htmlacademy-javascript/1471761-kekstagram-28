@@ -1,8 +1,7 @@
-import renderThumbnails from './thumbnail.js';
 import showAlert from './alert.js';
 import { unblockSubmitButton, closeModal } from './form.js';
 import { showSuccessMessage, showErrorMessage } from './message.js';
-import { getFilteredPictures } from './filter.js';
+import initFilters from './filter.js';
 
 
 const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
@@ -37,7 +36,7 @@ const load = (route, errorText, onSucces, onError, method = Method.GET, body = n
       unblockSubmitButton();
     });
 
-const getData = () => load(Route.GET_DATA, ErrorText.GET_DATA, renderThumbnails, showAlert);
+const getData = () => load(Route.GET_DATA, ErrorText.GET_DATA, initFilters, showAlert);
 const sendData = (body) => load(Route.SEND_DATA, ErrorText.SEND_DATA, showSuccessMessage, showErrorMessage, Method.POST, body);
 
 const filterElement = document.querySelector('.img-filters__title');

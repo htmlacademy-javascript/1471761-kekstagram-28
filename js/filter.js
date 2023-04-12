@@ -1,3 +1,7 @@
+import renderThumbnails from './thumbnail.js';
+import { debounce } from './util.js';
+import { DELAY } from './constants.js';
+
 const PICTURES_COUNT = 10;
 const Filter = {
   DEFAULT: 'filter-default',
@@ -8,34 +12,33 @@ const Filter = {
 const filterElement = document.querySelector('.img-filters');
 
 let currentFilter = Filter.DEFAULT;
-let pictures = [];
-
-filterElement.classList.remove('img-filters--inactive');
 
 const sortRandomly = () => Math.random() - 0.5;
 
 const sortByComments = (pictureA, pictureB) =>
   pictureB.comments.length - pictureA.comments.length;
 
-const getFilteredPictures = () => {
-
+const getFilteredPictures = (pictures) => {
   switch (currentFilter) {
     case Filter.RANDOM:
-      return [...pictures].sort(sortRandomly).slice(0, PICTURES_COUNT);
+      return pictures.slice().sort(sortRandomly).slice(0, PICTURES_COUNT);
     case Filter.DISCUSSED:
-      return [...pictures].sort(sortByComments);
+      return pictures.slice().sort(sortByComments);
     default:
-      return [...pictures];
+      return pictures;
   }
 };
 
-const onFilterClick = (callback) => {
-  filterElement.addEventListener('click', (evt) => {
+const initFilters = (pictures) => {
+  filterElement.classList.remove('img-filters--inactive');
+
+  filterElement.addEventListener('click', debounce((evt) => {
     if (!evt.target.classList.contains('img-filters__button')) {
       return;
     }
 
     const changeFilterButton = evt.target;
+
     if (changeFilterButton.id === currentFilter) {
       return;
     }
@@ -48,14 +51,9 @@ const onFilterClick = (callback) => {
 
     currentFilter = changeFilterButton.id;
 
-    callback(getFilteredPictures());
-  });
+    renderThumbnails(getFilteredPictures(pictures));
+  }), DELAY);
+  renderThumbnails(pictures);
 };
 
-const init = (loadedPictures, callback) => {
-  filterElement.classList.remove('img-filters--inactive');
-  pictures = [...loadedPictures];
-  onFilterClick(callback);
-};
-
-export { init, getFilteredPictures };
+export default initFilters;

@@ -9,5 +9,16 @@ const getRandomInteger = (min, max) => {
 const getRandomArrayElement = (array) =>
   array[getRandomInteger(0, array.length - 1)];
 
-export { getRandomInteger, getRandomArrayElement };
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+
+  };
+};
+
+
+export { getRandomInteger, getRandomArrayElement, debounce };
 
