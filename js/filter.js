@@ -10,11 +10,7 @@ const filterElement = document.querySelector('.img-filters');
 let currentFilter = Filter.DEFAULT;
 let pictures = [];
 
-//const showFilter = () => {
-//const start = document.querySelector('.container');
-//start.classList.remove('hidden');
-//filterElement.classList.remove('hidden');
-//};
+filterElement.classList.remove('img-filters--inactive');
 
 const sortRandomly = () => Math.random() - 0.5;
 
@@ -57,7 +53,7 @@ const onFilterClick = (callback) => {
 };
 
 const init = (loadedPictures, callback) => {
-  filterElement.classList.remove('img-filters--inactive');
+  //filterElement.classList.remove('img-filters--inactive');
   pictures = [...loadedPictures];
   onFilterClick(callback);
 };

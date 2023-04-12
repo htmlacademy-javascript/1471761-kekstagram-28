@@ -28,6 +28,11 @@ const renderThumbnails = (pictures) => {
   container.append(fragment);
 };
 
+const onContainerClick = () => {
+
+};
+
+container.addEventListener('click', onContainerClick);
 
 /*const renderSortedThumbnail = (currentPictures) => {
   pictures = currentPictures;
