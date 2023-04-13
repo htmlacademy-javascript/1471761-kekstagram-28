@@ -38,8 +38,4 @@ const load = (route, errorText, onSucces, onError, method = Method.GET, body = n
 const getData = () => load(Route.GET_DATA, ErrorText.GET_DATA, initFilters, showAlert);
 const sendData = (body) => load(Route.SEND_DATA, ErrorText.SEND_DATA, showSuccessMessage, showErrorMessage, Method.POST, body);
 
-const filterElement = document.querySelector('.img-filters__title');
-filterElement.classList.remove('hiden');
-
 export { getData, sendData };
-

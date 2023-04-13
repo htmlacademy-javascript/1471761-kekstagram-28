@@ -9,7 +9,7 @@ const MIN_MESSAGE = 1;
 const MAX_MESSAGE = 2;
 
 const MAX_HASHTAG_NUMBER = 5;
-const VALID_SIMBOLS = /^#[a-zа-яё0-9]{1,19}/i;
+const VALID_SIMBOLS = /#[a-zа-яё0-9]{1,19}$/i;
 const TAG_ERROR_TEXT = 'Неправельно заполнены хаштэги';
 
 const DELAY = 500;

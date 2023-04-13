@@ -1,4 +1,5 @@
 import { COMMENTS_PER_PORTION } from './constants.js';
+import { isEscPress } from './util.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const commentList = document.querySelector('.social__comments');
@@ -12,12 +13,7 @@ const template = document.querySelector('#current-comment').content.querySelecto
 let commentShown = 0;
 let basicComments = null;
 
-const onDocumentKeydown = (evt) => {
-  if (evt.key === 'Escape') {
-    evt.preventDefault();
-    hideBigPicture();
-  }
-};
+const onDocumentKeydown = (evt) => isEscPress(evt, hideBigPicture);
 
 const onCancelClick = () => {
   hideBigPicture();
