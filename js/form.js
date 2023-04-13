@@ -2,6 +2,7 @@ import { MAX_HASHTAG_NUMBER, VALID_SIMBOLS, TAG_ERROR_TEXT } from './constants.j
 import resetScale from './scale.js';
 import resetEffects from './effect.js';
 import { sendData } from './api.js';
+import { isEscPress } from './util.js';
 
 const form = document.querySelector('.img-upload__form');
 const overlay = document.querySelector('.img-upload__overlay');
@@ -50,12 +51,11 @@ const isTextFieldFocused = () =>
   document.activeElement === hashtagField ||
   document.activeElement === commentField;
 
-const onDocumentKeydown = (evt) => {
-  if (evt.key === 'Escape' && !isTextFieldFocused()) {
-    evt.preventDefault();
+const onDocumentKeydown = (evt) => isEscPress(evt, () => {
+  if (!isTextFieldFocused()) {
     closeModal();
   }
-};
+});
 
 const onCancelButtonClick = () => {
   closeModal();
@@ -114,4 +114,4 @@ const activateUploader = () => {
   fileField.addEventListener('change', onFileImputChange);
 };
 
-export { activateUploader, unblockSubmitButton, closeModal };
+export { activateUploader, unblockSubmitButton, closeModal, onDocumentKeydown };

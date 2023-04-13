@@ -9,6 +9,13 @@ const getRandomInteger = (min, max) => {
 const getRandomArrayElement = (array) =>
   array[getRandomInteger(0, array.length - 1)];
 
+const isEscPress = (evt, callback) => {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    callback();
+  }
+};
+
 const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
 
@@ -19,6 +26,5 @@ const debounce = (callback, timeoutDelay = 500) => {
   };
 };
 
-
-export { getRandomInteger, getRandomArrayElement, debounce };
+export { getRandomInteger, getRandomArrayElement, isEscPress, debounce };
 

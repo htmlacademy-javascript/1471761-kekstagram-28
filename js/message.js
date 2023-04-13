@@ -1,3 +1,6 @@
+import { isEscPress } from './util.js';
+import { onDocumentKeydown } from './form.js';
+
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 
 const onSuccessCloseButtonClick = () => {
@@ -12,12 +15,7 @@ const onSuccessDocumentClick = (evt) => {
   }
 };
 
-const onSuccessDocumentKeydown = (evt) => {
-  if (evt.key === 'Escape') {
-    evt.preventDefault();
-    hideSuccessMessage();
-  }
-};
+const onSuccessDocumentKeydown = (evt) => isEscPress(evt, hideSuccessMessage);
 
 const showSuccessMessage = () => {
   const succesMessage = successTemplate.cloneNode(true);
@@ -51,12 +49,7 @@ const onErrorDocumentClick = (evt) => {
   }
 };
 
-const onErrorDocumentKeydown = (evt) => {
-  if (evt.key === 'Escape') {
-    evt.preventDefault();
-    hideErrorMessage();
-  }
-};
+const onErrorDocumentKeydown = (evt) => isEscPress(evt, hideErrorMessage);
 
 const showErrorMessage = () => {
   const errorMessage = errorTemplate.cloneNode(true);
@@ -64,6 +57,7 @@ const showErrorMessage = () => {
   errorMessage.querySelector('.error__button').addEventListener('click', onErrorCloseButtonClick);
   document.addEventListener('click', onErrorDocumentClick);
   document.addEventListener('keydown', onErrorDocumentKeydown);
+  document.removeEventListener('keydown', onDocumentKeydown);
 
   document.body.append(errorMessage);
 };
@@ -71,6 +65,7 @@ const showErrorMessage = () => {
 function hideErrorMessage() {
   document.removeEventListener('click', onErrorDocumentClick);
   document.removeEventListener('keydown', onErrorDocumentKeydown);
+  document.addEventListener('keydown', onDocumentKeydown);
 
   document.body.querySelector('.error').remove();
 }

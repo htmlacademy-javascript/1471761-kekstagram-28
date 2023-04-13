@@ -42,4 +42,3 @@ const filterElement = document.querySelector('.img-filters__title');
 filterElement.classList.remove('hiden');
 
 export { getData, sendData };
-
